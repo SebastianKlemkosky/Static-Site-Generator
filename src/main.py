@@ -1,15 +1,30 @@
-from textnode import TextNode, TextType
-from inline_markdown import split_nodes_delimiter, split_nodes_image, split_nodes_link
-from extract_markdown import extract_markdown_images, extract_markdown_links
 
+from gencontent import generate_page,generate_pages_recursive
+import os, shutil
 
+def copy_from_source_to_destination(source, destination):
+    if os.path.exists(destination):
+        shutil.rmtree(destination)
+    os.makedirs(destination, exist_ok=True)
+    copy_recursive(source, destination)
+
+def copy_recursive(source, destination):
+    os.makedirs(destination, exist_ok=True)
+    contents = os.listdir(source)
+    
+    for item in contents:
+        path = os.path.join(source, item)
+        if os.path.isfile(path):
+            print(f"Copied: {path}")
+            shutil.copy(path,destination)
+        else:
+            directory_path = os.path.join(destination, item)
+            copy_recursive(os.path.join(source,item), directory_path)
+            
 def main():
-    node = TextNode(
-        "Start ![cat](https://example.com/cat.png) middle ![dog](https://example.com/dog.png) end",
-        TextType.TEXT,
-    )
-    result = split_nodes_image([node])
-    for n in result:
-        print(n)
+    copy_from_source_to_destination("static", "public")
+    generate_pages_recursive("content", "template.html", "public")
+        
+        
 if __name__ == "__main__":
     main()

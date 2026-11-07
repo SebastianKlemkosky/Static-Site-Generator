@@ -1,8 +1,9 @@
 import unittest
 from inline_markdown import split_nodes_delimiter, split_nodes_link, split_nodes_image, text_to_textnodes
 from textnode import TextNode, TextType
+from markdown_blocks import markdown_to_html_node
 
-class TestSplitNodesDelimiter(unittest.TestCase):
+class TestInlineMarkdown(unittest.TestCase):
     def test_code_block(self):
         node = TextNode("**bold** at the start", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "**", TextType.CODE)
@@ -98,6 +99,14 @@ class TestSplitNodesDelimiter(unittest.TestCase):
                 TextNode("image", TextType.IMAGE, "https://boot.dev/img.png"),
             ],
             nodes,
-        )  
+        )
+        
+    def test_quote_with_blank_line(self):
+        markdown = '> "I am in fact a Hobbit in all but size."\n>\n> -- J.R.R. Tolkien'
+        node = markdown_to_html_node(markdown)
+        html = node.to_html()
+        print(html)
+     
+      
 if __name__ == "__main__":
     unittest.main()
