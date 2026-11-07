@@ -1,6 +1,6 @@
 
-from gencontent import generate_page,generate_pages_recursive
-import os, shutil
+from gencontent import generate_pages_recursive
+import os, shutil, sys
 
 def copy_from_source_to_destination(source, destination):
     if os.path.exists(destination):
@@ -22,8 +22,14 @@ def copy_recursive(source, destination):
             copy_recursive(os.path.join(source,item), directory_path)
             
 def main():
-    copy_from_source_to_destination("static", "public")
-    generate_pages_recursive("content", "template.html", "public")
+    
+    if len(sys.argv) > 1:
+        basepath = sys.argv[1]
+    else:
+        basepath = "/"
+    
+    copy_from_source_to_destination("static", "docs")
+    generate_pages_recursive("content", "template.html", "docs", basepath)
         
         
 if __name__ == "__main__":
