@@ -1,31 +1,69 @@
 # Static Site Generator
 
-A Python-based static site generator that parses Markdown into an intermediate node tree and converts it to HTML.
+A static site generator built with Python as part of the [Boot.dev](https://www.boot.dev/) backend development curriculum.
 
-## Features So Far
+The project converts Markdown files into HTML pages, allowing a website to be generated automatically from Markdown content.
 
-- **HTML Node Representation**:
-  - `HTMLNode`: Base class for DOM-like elements with tags, values, children, and attributes.
-  - `LeafNode`: Represents HTML elements without children (e.g., `<p>`, `<a>`, `<img>`).
-  - `ParentNode`: Represents HTML elements that contain nested children.
-- **Text Node Model**:
-  - `TextNode`: Represents inline segments of formatted text with types defined by `TextType` (plain text, bold, italic, code, link, image).
-  - Conversion utility to transform `TextNode` objects into `LeafNode` HTML objects.
-- **Inline Markdown Parser**:
-  - Delimiter splitting for bold (`**`), italic (`_`), and inline code (`` ` ``).
-  - Regex extraction and node splitting for Markdown images (`![alt](url)`) and links (`[anchor](url)`).
-  - `text_to_textnodes`: A unified pipeline function that converts raw text into a structured list of `TextNode` instances.
+## Features
+
+- Converts Markdown into HTML
+- Supports headings, paragraphs, links, images, lists, and code blocks
+- Converts Markdown into HTML nodes
+- Recursively generates pages from Markdown files
+- Copies static assets such as images and CSS
+- Uses an HTML template to generate web pages
+
+## Technologies
+
+- Python 3
+- HTML
+- CSS
+- Markdown
+- Git
+
+## Getting Started
+
+Clone the repository and navigate to the project directory.
+
+```bash
+git clone <repository-url>
+cd static-site-generator
+```
+
+Generate the website:
+
+```bash
+python3 src/main.py
+```
+
+Start a local web server:
+
+```bash
+python3 -m http.server --directory docs
+```
+
+Open `http://localhost:8000` in your browser.
 
 ## Project Structure
 
 ```text
-.
-├── src/
-│   ├── htmlnode.py             # HTMLNode, LeafNode, and ParentNode classes
-│   ├── textnode.py             # TextNode model and conversion helpers
-│   ├── inline_markdown.py      # Markdown splitting and extraction logic
-│   ├── test_htmlnode.py        # Unit tests for HTML nodes
-│   ├── test_textnode.py        # Unit tests for TextNode classes
-│   └── test_inline_markdown.py # Unit tests for inline markdown parsing
-├── main.sh                     # Runs the main application entry point
-└── test.sh                     # Runs the unit test suite
+static-site-generator/
+├── content/       # Markdown content
+├── static/        # CSS and images
+├── src/           # Python source code
+├── docs/          # Generated HTML website
+└── README.md
+```
+
+## What I Learned
+
+- Object-oriented programming in Python
+- Recursive functions and directory traversal
+- Parsing Markdown into structured HTML
+- Working with files and directories
+- Generating HTML pages programmatically
+- Building a static website without external frameworks
+
+## Acknowledgments
+
+Built as part of the [Boot.dev](https://www.boot.dev/) Static Site Generator course.
